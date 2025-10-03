@@ -3,49 +3,34 @@ package esepunittests
 import "testing"
 
 func TestGetGradeA(t *testing.T) {
-	expected_value := "A"
-
-	gradeCalculator := NewGradeCalculator()
-
-	gradeCalculator.AddGrade("open source assignment", 100, Assignment)
-	gradeCalculator.AddGrade("exam 1", 100, Exam)
-	gradeCalculator.AddGrade("essay on ai ethics", 100, Essay)
-
-	actual_value := gradeCalculator.GetFinalGrade()
-
-	if expected_value != actual_value {
-		t.Errorf("Expected GetGrade to return '%s'; got '%s' instead", expected_value, actual_value)
+	expected := "A"
+	gc := NewGradeCalculator()
+	gc.AddGrade("assignment", 100, Assignment)
+	gc.AddGrade("exam", 100, Exam)
+	gc.AddGrade("essay", 100, Essay)
+	if got := gc.GetFinalGrade(); got != expected {
+		t.Errorf("expected %s, got %s", expected, got)
 	}
 }
 
 func TestGetGradeB(t *testing.T) {
-	expected_value := "B"
-
-	gradeCalculator := NewGradeCalculator()
-
-	gradeCalculator.AddGrade("open source assignment", 80, Assignment)
-	gradeCalculator.AddGrade("exam 1", 81, Exam)
-	gradeCalculator.AddGrade("essay on ai ethics", 85, Essay)
-
-	actual_value := gradeCalculator.GetFinalGrade()
-
-	if expected_value != actual_value {
-		t.Errorf("Expected GetGrade to return '%s'; got '%s' instead", expected_value, actual_value)
+	expected := "B"
+	gc := NewGradeCalculator()
+	gc.AddGrade("assignment", 80, Assignment)
+	gc.AddGrade("exam", 81, Exam)
+	gc.AddGrade("essay", 85, Essay)
+	if got := gc.GetFinalGrade(); got != expected {
+		t.Errorf("expected %s, got %s", expected, got)
 	}
 }
 
-func TestGetGradeF(t *testing.T) {
-	expected_value := "F"
-
-	gradeCalculator := NewGradeCalculator()
-
-	gradeCalculator.AddGrade("open source assignment", 100, Assignment)
-	gradeCalculator.AddGrade("exam 1", 95, Exam)
-	gradeCalculator.AddGrade("essay on ai ethics", 91, Essay)
-
-	actual_value := gradeCalculator.GetFinalGrade()
-
-	if expected_value != actual_value {
-		t.Errorf("Expected GetGrade to return '%s'; got '%s' instead", expected_value, actual_value)
+func TestGetGradeHighScores(t *testing.T) {
+	expected := "A" // FIXED: should be A, not F
+	gc := NewGradeCalculator()
+	gc.AddGrade("assignment", 100, Assignment)
+	gc.AddGrade("exam", 95, Exam)
+	gc.AddGrade("essay", 91, Essay)
+	if got := gc.GetFinalGrade(); got != expected {
+		t.Errorf("expected %s, got %s", expected, got)
 	}
 }
